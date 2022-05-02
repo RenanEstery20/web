@@ -1,0 +1,78 @@
+#### Criado o projeto com vite
+# Oque é vite? #
+* Vite veio para subistituir o webpack e babel
+# Como criar projeto com vite installar dependencias e subir projeto #
+* npm create vite@latest
+* nome projeto
+* qual ferramenta vai usar
+* dar npm install para installar as dependecias
+* subir projeto com npm run dev
+
+### Como funciona os componentes no react
+* Letra de componente sempre maiúscula 
+ex: <button/> = botão   |||   <Button/> = componente
+* Sempre tem que ter uma tag html envolvendo um componente
+ex: <div> <Button> </div> || se nao tiver da erro
+
+### Como funciona uma props no react
+ex: 
+
+interface ButtonProps{ // tipando o button para ele obrigatoriamente receber uma string
+  text: string;
+}
+
+function Button (props: ButtonProps){ // passa a props para funcao de botao mais a tipagem
+  //console.log(props.text)
+  return <button>{props.text}</button> // {passa a props mas o nome dado no componente pai}
+}
+
+// tbm podemos passar a props desta forma desestruturando o objeto
+function Button ({text}: ButtonProps){
+  //console.log(props.text)
+  return <button>{text}</button>
+}
+
+
+
+function App() {
+ return(
+   <div>
+     <Button text="Enviar"/> // passando conteudo de com a props para o componente button
+     <Button text="Ok"/>
+     <Button/> // agora se criarmos mais um button sem props ele vai da erro pq espera uma por causa do ts
+     se caso nao quiser deixar o text como props obrigatoria é só por na tipagem um ?  = text?: string;
+     e tbm podemos deixar um valor como default caso nao receber props <button>{props.text ?? 'Default'}</button>
+   </div>
+ )
+  
+}
+
+export default App
+
+### useState exemplo
+
+import {useState} from 'react';
+import { ChatTeardropDots } from "phosphor-react";
+import {Popover} from '@headlessui/react'
+
+export function Widget() {
+  const [isWidgetOpen, setIsWidgetOpen] = useState(false)
+
+  function toggleWidgetVisibility() {
+    setIsWidgetOpen(!isWidgetOpen)
+  }
+
+  return (
+    <div className="absolute bottom-5 right-5">
+      {isWidgetOpen ? <p>Hello world</p> : null}
+      <button onClick={toggleWidgetVisibility} className="bg-brand-500 rounded-full px-3 h-12 text-white flex items-center group">
+        <ChatTeardropDots className="w-6 h-6" />
+        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 ease-linear">
+          <span className="pl-2"></span>
+          Feedback
+        </span>  
+      </button>
+    </div>
+  );
+}
+
